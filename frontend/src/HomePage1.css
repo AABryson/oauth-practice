@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-image: url(https://i0.wp.com/rockexcavationservice.org/wp-content/uploads/2023/10/old-books-436498_1280-1.jpg?fit=1280%2C853&ssl=1) !important;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(70%);
+    filter: contrast(1.5);
+}
+
+#titleArea {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+#title {
+    font-weight: 300;
+    font-family: Garamond;
+    font-size: 100px;
+    color: white;
+    width: 100%;
+    letter-spacing: 5px;
+    filter: contrast(1.5);
+    text-align: center;
+}
+
+#searchBox {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+
+#search {
+    width: 100%;
+    font-family: 'Gill Sans';
+    font-size: 60px;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+#images {
+    display: flex;
+    width: 100%;
+    /* justify-content: space-around; */
+    height: 300px;
+    filter: grayscale(.2);   
+}
+
+#imageTitle {
+    text-align: center;
+    color:#F5F5EF; 
+    filter: brightness(1.9);
+    font-family : 'Nunito Sans';
+    font-size: 40px;
+    letter-spacing : 5px;
+    margin-top: 20px;
+    
+    
+}
+
+#titleBox {
+    background-color: rgba(0, 0, 0, 0.3)
+
+}
+
+#link {
+    text-decoration: none;
+}
+
+#authorImage {
+    box-sizing: border-box;
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXAuN768fPEweXUZnIVOy0r7U7FjNl1Wgm5g&s);
+    background-size: cover;
+    height: 100% !important;
+    width: 30% !important;
+    filter: brightness(.9);
+    filter: contrast(.9);
+    padding: 0;
+    
+}
+
+
+#titleImage {
+    background-image: url(https://images.pexels.com/photos/7085834/pexels-photo-7085834.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+    height: 100%;
+    background-size: cover;
+    filter: brightness(.9);
+    filter: contrast(.9);
+    padding: 0;
+    
+}
+
+#subjectImage {
+    background-image: url(https://www.5w1hmethod.com/wp-content/uploads/2023/01/The-Thinker.jpg);
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(.9);
+    filter: contrast(.9);
+    padding: 0;
+
+}

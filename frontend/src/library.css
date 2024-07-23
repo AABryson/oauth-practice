@@ -1,0 +1,26 @@
+#container {
+    background-image: url(https://s26162.pcdn.co/wp-content/uploads/2021/05/1a2qP9yBoc9G19569rM88CQ.jpeg);
+    height: 1000px;
+    width: 100vw;
+    background-size: cover
+}
+
+#mainTitle {
+    font-size: 80px;
+    color: white;
+    font-family: Garamond;
+    letter-spacing: 5px;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8)
+}
+
+#cardText {
+    background-color: rgba(234, 234, 234, .8);
+}
+
+#navLink {
+    color: black;
+    font-family: Garamond;
+    font-size: 30px;
+    margin-left: 5px;
+}
