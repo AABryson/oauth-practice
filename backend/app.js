@@ -15,10 +15,9 @@ app.use(morgan("tiny"));
 
 const oAuth2Client = new OAuth2Client(
     CLIENT_ID = '317428792953-lhgk1b018qbomhpfq4cbmu1u7aaujiv1.apps.googleusercontent.com',
-   
+    CLIENT_SECRET = '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',
     'postmessage',
 );
-
 
 app.post('/auth/google', async (req, res) => {
   const { tokens } = await oAuth2Client.getToken(req.body.code); // exchange code for tokens

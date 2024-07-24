@@ -1,3 +1,4 @@
+//Checked
 import React, {useState} from 'react'
 import {Routes, Route} from 'react-router-dom'
 import ContextObject from './ContextObject'
@@ -8,8 +9,10 @@ import SearchByTitleNew from './SearchByTitleNew'
 import SearchBySubjectNew from './SearchBySubjectNew'
 import SearchBookshelves from './library'
 import SearchBooks from './SearchBooks'
+import Callback from './callback'
 import Signup from './credentials/Signup'
 import Login from './credentials/Login'
+
 
 function App() {
 
@@ -18,26 +21,14 @@ function App() {
   const [subject, setSubject] = useState('')
   const [user, setUser] = useState('')
   const [authToken, setAuthToken] = useState('')
-    
-    // 'ya29.a0AXooCgvY6QpKN-ovVcSk7CcMJv6y9xyEkaW_FFag3ckizCqJdz-O64Gt1S-tY10iWddnFwRUE0V5V7DCkzDCUyrsZVdVI2WSQomD1FLTTADaHKUIkO8egzeEF-a8N_xqPnIeY95Y2V9OdsEF_YyfGkIVBgzgZISh7DTaaCgYKATUSARESFQHGX2Mifz1YEkPg87nmCmAk8BTX-Q0171')
-//###############[]
   const [books, setBooks] = useState([])
-
-  // function navigate(url) {
-  //   window.location.href = url
-  // }
-  // async function auth() {
-  //   const response = await fetch('http://127.0.0.1:3001/request', { method: 'post' })
-  //   const data = await response.json();
-  //   navigate(data.url);
-  // }
-
-  // auth()
+  const [loggedIn, setLoggedIn] = useState('');
+  
   
   return (
     <div className='container-fluid p-0'>
 
-      <ContextObject.Provider value={{author, setAuthor, title, setTitle, subject, setSubject, user, setUser, authToken, setAuthToken, books, setBooks}}>
+      <ContextObject.Provider value={{author, setAuthor, title, setTitle, subject, setSubject, user, setUser, authToken, setAuthToken, books, setBooks, loggedIn, setLoggedIn}}>
         <NavBar />
         <Routes>
           <Route path='/' element={<HomePage1 />}/>
@@ -48,11 +39,11 @@ function App() {
           <Route path='/books/:id' element={<SearchBooks />} />
           <Route path='/signup' element={<Signup />}  />
           <Route path='/login' element={<Login />} />
+          <Route path='/callback' element={<Callback />} />
         </Routes>
       </ContextObject.Provider>
 
     </div>
-
   )
 }
 

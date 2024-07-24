@@ -1,4 +1,4 @@
-const Users = require('../musers.js');
+const Users = require('../models/musers.js');
 const db = require('../db.js')
 const express = require('express');
 const axios = require('axios');

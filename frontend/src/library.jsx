@@ -9,10 +9,8 @@ function SearchBookshelves() {
     const [shelves, setShelves] = useState([]);
     const [books, setBooks] = useState([]);
     const {authToken, setAuthToken} = useContext(ContextObject)
-
-    const apiKey = 'AIzaSyBZR1XenESLwQpCZDFvClClUHijprCS7D4';
-
-   
+    console.log(authToken)
+    const apiKey = 'AIzaSyBJo7SCNGuT27ZbgzdgO0R9t-UT4nrERsA';
 
     async function getShelves() {
         const result = await axios.get(`https://www.googleapis.com/books/v1/mylibrary/bookshelves?key=${apiKey}`, {
@@ -27,7 +25,6 @@ function SearchBookshelves() {
     
 
     useEffect(() => {
-       
         getShelves()
     }, [])
 
@@ -50,7 +47,7 @@ function SearchBookshelves() {
 
     return (
         
-        <div className='container-fluid' id='container'>
+        <div className='container-fluid' id='containerLibrary'>
             <div className='row'> 
                 <div className='col-12 p-0'>
                     <h1 className='text-end p-5' id='mainTitle'>Your Library</h1>

@@ -1,24 +1,19 @@
+//Checked
 import React, {useState, useContext} from 'react'
 import axios from 'axios'
 import ContextObject from './ContextObject'
-import {NavLink} from 'react-router-dom'
 import './SearchBySubjectNew.css'
 
-
- //need form, handleSubmit, onChange, api endpoint, how do I show then the .preview in google bsooks, need img, title, author
-
 function SearchBySubjectNew() {
-    console.log('SearchBySubject page')
     
     const {subject, setSubject} = useContext(ContextObject)
-    const [input, setInput] = useState('')
     const {authToken} = useContext(ContextObject)
+    const [input, setInput] = useState('')
     const [addingBook, setAddingBook] = useState(false)
-
 
     let BASE_URL = 'https://www.googleapis.com/books/v1/volumes?q='
 
-    const apiKey = 'AIzaSyBZR1XenESLwQpCZDFvClClUHijprCS7D4';
+    const apiKey = 'AIAIzaSyBJo7SCNGuT27ZbgzdgO0R9t-UT4nrERsA';
 
     async function handleSubmit(evt) {
         evt.preventDefault()
@@ -51,23 +46,18 @@ function SearchBySubjectNew() {
                 },
                 }
             );
-        
-            console.log('Book added successfully:', response.data);
     
-        } catch (error) {
+        } catch(error) {
             console.error('Error adding book:', error);
-        
         } finally {
-        
             setAddingBook(false); 
         }
     }
 
     function renderInfo(item) {
         return subject.map((item, index) => (
-            <div className='card text-start ms-5 me-5' style={{ backgroundColor: 'rgb(242, 242, 242, 0.7)', marginBottom: '12px', marginLeftmarginRight: '40px', width: '92%'}} key={index}>
-                <div className='card-body col-12' style={{maringRight:'3100x'}}>
-                    {console.log('item returned', item)}
+            <div className='card text-start ms-5 me-5' style={{ backgroundColor: 'rgb(242, 242, 242, 0.7)', marginBottom: '12px', width: '92%'}} key={index}>
+                <div className='card-body col-12'>
                     <h4 className='card-title' id='cardTitle'>{item.volumeInfo.title}</h4>
                     <h5 className='card-title' id='cardTitle'>{item.volumeInfo.subtitle}</h5>
                     <h5 className='card-subtitle mb-2' id='cardSubTitle'>{item.volumeInfo.authors}</h5>
@@ -102,7 +92,6 @@ function SearchBySubjectNew() {
                 <div className='card-footer border-top border-danger'>
                     <div className='row'>
                         <div className='col-4'>
-                        
                             {item.saleInfo.buyLink ? (
                                 <>
                                 <h5 style={{ fontSize: '14px' }}>Purchase from</h5>
@@ -119,7 +108,6 @@ function SearchBySubjectNew() {
                         
                         <div className='col-2 d-flex'>
                             {item.volumeInfo.previewLink ? (
-                        
                                 <a href={item.volumeInfo.previewLink} className='btn btn-secondary align-self-center' role='button'>Preview</a>
 
                             ) : null}
@@ -134,7 +122,6 @@ function SearchBySubjectNew() {
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 2)}>To Read</li>
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 4)}>Have Read</li>
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 5)}>Reviewed</li>
-
                             </ul>
                         </div>
                     </div>
@@ -144,8 +131,6 @@ function SearchBySubjectNew() {
     }
 
     return (
-        
-        // </div>
     <>
     <div className='container-fluid text-center p-0' id='backgroundColor'>
         <div className='row'>

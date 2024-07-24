@@ -2,8 +2,6 @@ import React, {useContext, useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import ContextObject from './ContextObject'
 import axios from 'axios'
-import {NavLink} from 'react-router-dom'
-
 
 function SearchBooks() {
 
@@ -13,7 +11,7 @@ function SearchBooks() {
     const [addingBook, setAddingBook] = useState(false)
     const [removingBook, setRemovingBook] = useState(false)
 
-    const apiKey = 'AIzaSyBZR1XenESLwQpCZDFvClClUHijprCS7D4';
+    const apiKey = 'AIzaSyBJo7SCNGuT27ZbgzdgO0R9t-UT4nrERsA';
     
     async function retrieveBooks() {
         let result = await axios.get(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/${params.id}/volumes?key=${apiKey}`, {
@@ -21,9 +19,7 @@ function SearchBooks() {
             'Authorization': `Bearer ${authToken}`
                 }
             })
-        console.log('results from book api call', result)
         setBooks(result.data.items)
-        console.log('result from making call to specific bookshelf', result)
     }
     useEffect(() => {
         retrieveBooks()
@@ -36,31 +32,28 @@ function SearchBooks() {
         setAddingBook(true); // Set state to indicate adding book
     
         try {
-          const response = await axios.post(
+            const response = await axios.post(
             `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${num}/addVolume?volumeId=${id}`,
             {},
             {
-              headers: {
+            headers: {
                 Authorization: `Bearer ${authToken}`,
                 'Content-Type': 'application/json',
-              },
+            },
             }
-          );
-    
-          console.log('Book added successfully:', response.data);
+        );
           // Handle success: display message, update state, etc.
-        } catch (error) {
-          console.error('Error adding book:', error);
+        } catch(error) {
+            console.error('Error adding book:', error);
           // Handle error: display error message, retry, etc.
         } finally {
-          setAddingBook(false); // Reset state after request completes
+            setAddingBook(false); 
         }
-      }
+    }
 
     async function handleRemove(paramsId, itemId, apiKey, authToken) {
-        if (removingBook) return; // If already removing, prevent duplicate calls
-    
-        setRemovingBook(true); // Set state to indicate adding book
+        if (removingBook) return; 
+        setRemovingBook(true); 
     
         try {
             let response = await axios.post(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/${paramsId}/removeVolume?volumeId=${itemId}&key=${apiKey}`, 
@@ -72,20 +65,15 @@ function SearchBooks() {
                 }
             }
             )
-    
-            console.log('Book removed successfully:', response.data);
           // Handle success: display message, update state, etc.
-          await retrieveBooks()
-        } catch (error) {
+            await retrieveBooks()
+        } catch(error) {
             console.error('Error removing book:', error);
-          // Handle error: display error message, retry, etc.
         } finally {
-          setRemovingBook(false); // Reset state after request completes
+            setRemovingBook(false); 
         }
-      }
+    }
         
-    
-
     function renderInfo(books) {
         return books.map((item, index) => (
             <div className='card text-start mx-5' style={{ backgroundColor: 'rgb(242, 242, 242, 0.7)', marginBottom: '12px' }} key={index}>
@@ -94,7 +82,6 @@ function SearchBooks() {
                     <h4 className='card-title' style={{ fontFamily: 'garamond', fontWeight: '400' }}>{item.volumeInfo.title}</h4>
                     <h5 className='card-subtitle mb-2' style={{ color: '#a84343', fontFamily: 'calisto' }}>{item.volumeInfo.authors}</h5>
                     <div className='row'>
-                        {/* <div className='col-1 border-start p-1'></div> */}
                         <div className='col-10 border-start'>
                             <p className='card-text'>{item.volumeInfo.description}</p>
                         </div>
@@ -106,8 +93,8 @@ function SearchBooks() {
                             )}
                         </div>
                     </div>
-                    {/* Add href to link to */}
                 </div>
+
                 <div className='card-footer border-top border-danger'>
                     <div className='row'>
                         <div className='col-3'>
@@ -136,41 +123,28 @@ function SearchBooks() {
                         <div className='col-3 d-flex'>
                             <button className='btn btn-secondary dropdown-toggle align-self-center' type='button' data-bs-toggle='dropdown'>Add to</button>
                             <ul className='dropdown-menu'>
-                                {/* Add the correct href attribute here */}
-                            {/**began working on dropdown and navlin */}
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 0)}>Favorites</li>
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 2)}>To Read</li>
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 4)}>Have Read</li>
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 5)}>Reviewed</li>
-
                             </ul>
                         </div>
                     </div>
                 </div>
+
             </div>
         ));
     }
 
-
     return (
         <div>
-            {/* {books.map((book) => (
-                <div className='row'>
-                    <div className='col-8'>
-                        <h5>{book.volumeInfo.title}</h5>
-                    </div>
-                </div>
-                ))
-            } */}
             {!books ? (
                 null 
             ) : ( 
                 renderInfo(books)
             )}
         </div> 
-
     )
-
 }
 
 export default SearchBooks

@@ -1,45 +1,40 @@
+//Checked
 import React, {useState, useContext} from 'react'
 import axios from 'axios'
 import ContextObject from './ContextObject'
-import {NavLink} from 'react-router-dom'
+// import {NavLink} from 'react-router-dom'
 import './SearchByTitleNew.css'
 
-
- //need form, handleSubmit, onChange, api endpoint, how do I show then the .preview in google bsooks, need img, title, author
-
 function SearchByTitleNew() {
-    console.log('SearchByAuthor page')
-    
+    //several states from App.jsx
     const {title, setTitle} = useContext(ContextObject)
-    const [input, setInput] = useState('')
+     //the token that is stored after oauth2 process
     const {authToken} = useContext(ContextObject)
+    const [input, setInput] = useState('')
     const [addingBook, setAddingBook] = useState(false)
 
-
     let BASE_URL = 'https://www.googleapis.com/books/v1/volumes?q='
-
-    const apiKey = 'AIzaSyBZR1XenESLwQpCZDFvClClUHijprCS7D4';
+    //The key that google uses to identify the application
+    const apiKey = 'AAIzaSyBJo7SCNGuT27ZbgzdgO0R9t-UT4nrERsA';
 
     async function handleSubmit(evt) {
         evt.preventDefault()
-
         let response = await axios.get(`${BASE_URL}intitle:${input}&maxResults=40&key=AIzaSyCb0W-9jMh6sviCF2ugUnLp_Sc-D5Z0sWI`)
-
+        //sets title state with array of objects containing individual book information
         setTitle(response.data.items)
         setInput('')  
     }
-    
+    //each time a user types text into the search bar, it is set to the input state
     function handleChange(evt) {
         let value = evt.target.value
         setInput(value)
     }
-
+    //function for adding books to the user's bookshelves
     async function handleAddTo(id, authToken, num) {
         //prevent duplicate calls
         if (addingBook) return; 
         //set state to show adding a book
         setAddingBook(true); 
-    
         try {
             const response = await axios.post(
                 `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${num}/addVolume?volumeId=${id}`,
@@ -52,22 +47,18 @@ function SearchByTitleNew() {
                 }
             );
         
-            console.log('Book added successfully:', response.data);
-    
         } catch (error) {
             console.error('Error adding book:', error);
-        
         } finally {
-        
             setAddingBook(false); 
         }
     }
-
+    //creates an individual card for each book returned; shows pertinent information
     function renderInfo(item) {
+        //author is an array; run callback function on each element and extract info for card
         return title.map((item, index) => (
-            <div className='card text-start ms-5 me-5' style={{ backgroundColor: 'rgb(242, 242, 242, 0.7)', marginBottom: '12px', marginLeftmarginRight: '40px', width: '92%'}} key={index}>
-                <div className='card-body col-12' style={{maringRight:'3100x'}}>
-                    {console.log('item returned', item)}
+            <div className='card text-start ms-5 me-5' style={{ backgroundColor: 'rgb(242, 242, 242, 0.7)', marginBottom: '12px', width: '92%'}} key={index}>
+                <div className='card-body col-12'>
                     <h4 className='card-title' id='cardTitle'>{item.volumeInfo.title}</h4>
                     <h5 className='card-title' id='cardTitle'>{item.volumeInfo.subtitle}</h5>
                     <h5 className='card-subtitle mb-2' id='cardSubTitle'>{item.volumeInfo.authors}</h5>
@@ -94,7 +85,6 @@ function SearchByTitleNew() {
                             ) : (
                                 null
                             )}
-
                         </div>
                     </div>
                 </div>
@@ -102,7 +92,7 @@ function SearchByTitleNew() {
                 <div className='card-footer border-top border-danger'>
                     <div className='row'>
                         <div className='col-4'>
-                        
+            
                             {item.saleInfo.buyLink ? (
                                 <>
                                 <h5 style={{ fontSize: '14px' }}>Purchase from</h5>
@@ -134,7 +124,6 @@ function SearchByTitleNew() {
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 2)}>To Read</li>
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 4)}>Have Read</li>
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 5)}>Reviewed</li>
-
                             </ul>
                         </div>
                     </div>
@@ -144,8 +133,6 @@ function SearchByTitleNew() {
     }
 
     return (
-        
-        // </div>
     <>
     <div className='container-fluid text-center p-0' id='backgroundColor'>
         <div className='row'>
@@ -154,8 +141,8 @@ function SearchByTitleNew() {
             ) : (null)
             }
         </div>
+
         <div className='row pb-4'>
-        
             <form onSubmit={handleSubmit}>
                 <div id='handleSubmit'>
                     <label htmlFor='Title' id='labelTitle'>Title</label>

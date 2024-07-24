@@ -1,11 +1,9 @@
+//Checked
 import React, {useState, useContext} from 'react'
 import axios from 'axios'
 import ContextObject from './ContextObject'
-import {NavLink} from 'react-router-dom'
+// import {NavLink} from 'react-router-dom'
 import './SearchByAuthor.css'
-
-
- //need form, handleSubmit, onChange, api endpoint, how do I show then the .preview in google books, need img, title, author
 
 function SearchByAuthor() {
     //several states from App.jsx
@@ -16,8 +14,8 @@ function SearchByAuthor() {
     const [addingBook, setAddingBook] = useState(false)
 
     let BASE_URL = 'https://www.googleapis.com/books/v1/volumes?q='
-    //This key that google uses to identify the application
-    const apiKey = 'AIzaSyBZR1XenESLwQpCZDFvClClUHijprCS7D4';
+    //The key that google uses to identify the application
+    const apiKey = 'AIzaSyBJo7SCNGuT27ZbgzdgO0R9t-UT4nrERsA';
 
     async function handleSubmit(evt) {
         evt.preventDefault()
@@ -38,7 +36,6 @@ function SearchByAuthor() {
         if (addingBook) return; 
         //set state to show adding a book
         setAddingBook(true); 
-    
         try {
             const response = await axios.post(
                 `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${num}/addVolume?volumeId=${id}`,
@@ -50,8 +47,8 @@ function SearchByAuthor() {
                 },
                 }
             );
-            console.log('Book added successfully:', response.data);
-        } catch (error) {
+            
+        } catch(error) {
             console.error('Error adding book:', error);
         } finally {
             setAddingBook(false); 
@@ -63,7 +60,6 @@ function SearchByAuthor() {
         return author.map((item, index) => (
             <div className='card text-start ms-5 me-5' style={{ backgroundColor: 'rgb(242, 242, 242, 0.7)', marginBottom: '12px', width:'92%' }} key={index}>
                 <div className='card-body col-12'>
-                    {console.log('item returned', item)}
                     <h4 className='card-title' id='cardTitle'>{item.volumeInfo.title}</h4>
                     <h5 className='card-title' id='cardTitle'>{item.volumeInfo.subtitle}</h5>
                     <h5 className='card-subtitle mb-2' id='cardSubTitle'>{item.volumeInfo.authors}</h5>
@@ -90,7 +86,6 @@ function SearchByAuthor() {
                             ) : (
                                 null
                             )}
-
                         </div>
                     </div>
                 </div>
@@ -109,8 +104,8 @@ function SearchByAuthor() {
                                         </div>
                                     </div>
                                 </>
-                                    ) : (
-                                        null)}
+                                ) : (
+                                null)}
                         </div>
                         
                         <div className='col-2 d-flex'>
@@ -123,12 +118,12 @@ function SearchByAuthor() {
                         <div className='col-2 d-flex'>
                             <button className='btn btn-secondary dropdown-toggle align-self-center' type='button' data-bs-toggle='dropdown'>Add to</button>
                             <ul className='dropdown-menu'>
-                                
+                                {/* Add the correct href attribute here */}
+                                {/**began working on dropdown and navlin */}
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 0)}>Favorites</li>
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 2)}>To Read</li>
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 4)}>Have Read</li>
                                 <li className='dropdown-item' onClick={() =>  handleAddTo(item.id, authToken, 5)}>Reviewed</li>
-
                             </ul>
                         </div>
                     </div>
@@ -141,7 +136,7 @@ function SearchByAuthor() {
     <>
     <div className='container-fluid text-center p-0' id='backgroundColor'>
         <div className='row'>
-            {/*if the author state is empty, show the search by along with the title below  **/} 
+            {/*if the author state is empty, show the search bar along with the title below  **/} 
             {!author ? (
                 <h3 className='pt-4'>Search by author</h3>
             ) : (null)
@@ -149,7 +144,7 @@ function SearchByAuthor() {
         </div>
 
         <div className='row pb-4'>
-            {/*when users submit their inquiry the title for the searchbar disappears **/}
+            {/*when users submit their inquiry, the title for the searchbar disappears **/}
             <form onSubmit={handleSubmit}>
                 <div id='handleSubmit'>
                     <label htmlFor='author' id='labelAuthor'>Author</label>
