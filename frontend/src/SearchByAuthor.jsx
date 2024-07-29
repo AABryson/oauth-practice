@@ -134,7 +134,7 @@ function SearchByAuthor() {
 
     return (
     <>
-    <div className='container-fluid text-center p-0' id='backgroundColor'>
+    <div className='container-fluid text-center p-0' id='backgroundColor' data-testid='backgroundColor-container'>
         <div className='row'>
             {/*if the author state is empty, show the search bar along with the title below  **/} 
             {!author ? (
@@ -149,13 +149,13 @@ function SearchByAuthor() {
                 <div id='handleSubmit'>
                     <label htmlFor='author' id='labelAuthor'>Author</label>
                     <input type='text' id='inputAuthor' value={input} onChange={handleChange} name='author'/>
-                        <button className='btn btn-light' id='searchButton' type='submit'>Search</button>
+                        <button className='btn btn-light' id='searchButton' type='submit' data-testid='buttonSearch'>Search</button>
                 </div>
             </form>
         </div>
         {/*while the author state is empty, show pictures of famous authors**/}
         {!author ? (
-        <div className='row pt-5' id='images'>
+        <div className='row pt-5' id='images' data-testid='authorImages'>
             <div id='bronte'></div>
             <div id='orwell'></div>
             <div id='wilde'></div>

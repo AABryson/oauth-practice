@@ -10,6 +10,8 @@ const GoogleLoginButton = () => {
   const{setLoggedIn} = useContext(ContextObject)
   const googleLogin = useGoogleLogin({
     flow: 'auth-code',
+    //added from chatgpt
+    scope: 'https://www.googleapis.com/auth/books',
     onSuccess: async (codeResponse) => {
       try {
         // Exchange the authorization code for tokens with backend
