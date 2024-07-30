@@ -93,26 +93,42 @@ const userRoutes = require('./routes/rusers.js');
 
 const app = express();
 
-// Simplified CORS options to allow all origins for debugging purposes
+// Define allowed origins
+const allowedOrigins = ['https://oauth-practice-frontend.vercel.app'];
+
 const corsOptions = {
-  origin: '*', // Allow all origins
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: 'GET,POST,PUT,DELETE,OPTIONS',
-  allowedHeaders: 'Content-Type,Authorization'
+  allowedHeaders: 'Content-Type,Authorization',
+  credentials: true, // Enable credentials if needed
 };
 
-// Use CORS middleware with simplified options
+// Use CORS middleware
 app.use(cors(corsOptions));
+
+// Middleware to handle preflight requests
+app.options('*', cors(corsOptions));
+
+// Log request details for debugging
+app.use((req, res, next) => {
+  console.log(`Request Method: ${req.method}, Request URL: ${req.url}`);
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 
-// Handle preflight OPTIONS requests explicitly
-app.options('*', cors(corsOptions));
-
+// Google OAuth2Client setup
 const oAuth2Client = new OAuth2Client(
-  CLIENT_ID = '317428792953-lhgk1b018qbomhpfq4cbmu1u7aaujiv1.apps.googleusercontent.com',
-  CLIENT_SECRET = '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',
+  '317428792953-lhgk1b018qbomhpfq4cbmu1u7aaujiv1.apps.googleusercontent.com',
+  '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',
   'postmessage'
 );
 
@@ -129,9 +145,9 @@ app.post('/auth/google', async (req, res) => {
 
 app.post('/auth/google/refresh-token', async (req, res) => {
   try {
-    const user = new UserRefreshClient(
-      CLIENT_ID,
-      CLIENT_SECRET,
+    const user = new OAuth2Client(
+      '317428792953-lhgk1b018qbomhpfq4cbmu1u7aaujiv1.apps.googleusercontent.com',
+      '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',
       req.body.refreshToken
     );
     const { credentials } = await user.refreshAccessToken(); // obtain new tokens
@@ -145,5 +161,3 @@ app.post('/auth/google/refresh-token', async (req, res) => {
 app.use('/users', userRoutes);
 
 module.exports = app;
-
-
