@@ -4,8 +4,7 @@ const morgan = require("morgan");
 const app = express();
 const {OAuth2Client} = require('google-auth-library');
 const userRoutes = require('./routes/rusers.js')
-// const authRouter = require('./routes/oauth')
-// const requestRouter = require('./routes/request')
+
 
 app.use(cors());
 app.use(express.json());
@@ -38,8 +37,7 @@ app.post('/auth/google/refresh-token', async (req, res) => {
 
 
 app.use('/users', userRoutes)
-// app.use('/oauth', authRouter);
-// app.use('/request', requestRouter);
+
 
 
 
@@ -49,13 +47,3 @@ app.use('/users', userRoutes)
 
 module.exports = app;
 
-/** Handle 404 errors -- this matches everything */
-// app.use(function (req, res, next) {
-//   return next(new NotFoundError());
-// });
-/** Generic error handler; anything unhandled goes here. */
-// app.use(function (err, req, res, next) {nopd
-//   return res.status(status).json({
-//     error: { message, status },
-//   });
-// });

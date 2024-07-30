@@ -15,7 +15,9 @@ const GoogleLoginButton = () => {
     onSuccess: async (codeResponse) => {
       try {
         // Exchange the authorization code for tokens with backend
-        const response = await axios.post('http://localhost:3001/auth/google', {
+        //http://localhost:3001/auth/google
+        
+        const response = await axios.post('https://oauth-practicebackend.vercel.app/auth/google', {
           code: codeResponse.code,
         });
         // Handle the tokens received from backend and store in authToken state
