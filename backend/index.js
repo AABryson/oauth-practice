@@ -9,7 +9,7 @@
 //     console.log('backend listening on port 3001')
 // })
 // index.js
-import http from 'http';
+const http = require('http');
 
 // Create a server object
 const server = http.createServer((req, res) => {
