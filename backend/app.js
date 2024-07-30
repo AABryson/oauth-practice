@@ -113,7 +113,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Middleware to handle preflight requests
-app.options('*', cors(corsOptions));
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'https://oauth-practice-frontend.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(204); // No Content
+});
 
 // Log request details for debugging
 app.use((req, res, next) => {
