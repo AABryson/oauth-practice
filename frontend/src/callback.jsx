@@ -14,7 +14,8 @@ const Callback = () => {
 
     // Send code to backend for tokens
     if (code) {
-      axios.post('http://localhost:3001/auth/google', { code })
+      // axios.post('http://localhost:3001/auth/google', { code })
+      axios.post('https://oauth-practicebackend.vercel.app/auth/google', {code})
         .then(response => {
           // Handle tokens, save them, etc.
           console.log('Tokens:', response.data);
