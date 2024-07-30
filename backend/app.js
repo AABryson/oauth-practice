@@ -5,15 +5,12 @@ const app = express();
 const {OAuth2Client} = require('google-auth-library');
 const userRoutes = require('./routes/rusers.js')
 
-const corsOptions = {
+app.use(cors({
   origin: 'https://oauth-practice-frontend.vercel.app',
-  optionsSuccessStatus: 200
-};
+  methods: 'GET,POST,PUT,DELETE,OPTIONS',
+  allowedHeaders: 'Content-Type,Authorization'
+}));
 
-app.use(cors(corsOptions));
-
-
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 app.use(morgan("tiny"));
