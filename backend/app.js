@@ -112,20 +112,8 @@ const corsOptions = {
 // Use CORS middleware
 app.use(cors(corsOptions));
 
-// Middleware to handle preflight requests
-app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'https://oauth-practice-frontend.vercel.app');
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.sendStatus(204); // No Content
-});
-
-// Log request details for debugging
-app.use((req, res, next) => {
-  console.log(`Request Method: ${req.method}, Request URL: ${req.url}`);
-  next();
-});
+// Explicitly handle OPTIONS preflight requests
+app.options('*', cors(corsOptions)); // Preflight request handler
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -141,7 +129,6 @@ const oAuth2Client = new OAuth2Client(
 app.post('/auth/google', async (req, res) => {
   try {
     const { tokens } = await oAuth2Client.getToken(req.body.code); // exchange code for tokens
-    console.log(tokens);
     res.json(tokens);
   } catch (error) {
     console.error('Error in /auth/google:', error); // Added error handling
