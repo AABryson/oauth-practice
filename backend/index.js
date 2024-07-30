@@ -1,5 +1,5 @@
 
-const app = require("./app");
+// const app = require("./app");
 // // const createTables = require('./createTables')
 
 // // createTables()
@@ -9,10 +9,10 @@ const app = require("./app");
 //     console.log('backend listening on port 3001')
 // })
 // index.js
-// import http from 'http';
+import http from 'http';
 
 // Create a server object
-const server = app.createServer((req, res) => {
+const server = http.createServer((req, res) => {
 	// Set the response header
 	res.writeHead(200, {'Content-Type': 'text/plain'});
 	// Write some text to the response
