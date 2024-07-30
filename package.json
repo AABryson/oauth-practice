@@ -28,6 +28,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "aws-amplify": "^6.4.3"
+    "aws-amplify": "^6.4.3",
+    "cors": "^2.8.5"
   }
 }
