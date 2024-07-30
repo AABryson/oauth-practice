@@ -26,9 +26,6 @@ router.post('/login', async (req, res, next) => {
         let user = await Users.userLogin(username, password)
         res.status(201).json({user})
     }
-        
-
-
 )      
 
 module.exports = router
