@@ -5,6 +5,13 @@ const app = express();
 const {OAuth2Client} = require('google-auth-library');
 const userRoutes = require('./routes/rusers.js')
 
+const corsOptions = {
+  origin: 'https://oauth-practice-frontend.vercel.app',
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+
 
 app.use(cors());
 app.use(express.json());
